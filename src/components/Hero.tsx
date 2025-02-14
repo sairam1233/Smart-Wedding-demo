@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Music, PauseCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { differenceInSeconds } from "date-fns";
 import "./all.css";
@@ -8,14 +7,12 @@ import "./all.css";
 const WEDDING_DATE = new Date("2024-12-31T00:00:00Z");
 
 const Hero: React.FC = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-  const audioRef = useRef<HTMLAudioElement>(null);
   const timerInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Function to update the countdown
@@ -63,18 +60,6 @@ const Hero: React.FC = () => {
     };
   }, []); // Empty dependency array ensures this runs only on mount and unmount
 
-  // Toggle audio play/pause
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.muted = false; // Unmute before playing
-      audioRef.current.play().catch((error) => console.error("Playback failed:", error));
-    }
-    setIsPlaying(!isPlaying);
-  };
-
   return (
     <div className="relative h-screen">
       {/* Background Image */}
@@ -87,21 +72,6 @@ const Hero: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black bg-opacity-40" />
       </div>
-
-      {/* Audio Element */}
-      <audio ref={audioRef} loop muted>
-        <source src="/audio/exciting-day-inspiring-piano-176148.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-
-      {/* Music Button */}
-      <button
-        onClick={togglePlay}
-        className="music absolute top-4 right-4 hover:scale-110 transition-transform"
-        aria-label={isPlaying ? "Pause music" : "Play music"}
-      >
-        {isPlaying ? <PauseCircle size={32} /> : <Music size={32} />}
-      </button>
 
       {/* Main Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-white">

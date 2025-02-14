@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Music, PauseCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
@@ -11,6 +11,8 @@ const navItems = [
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,17 @@ const Navigation: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.muted = false; // Unmute before playing
+      audioRef.current.play().catch((error) => console.error('Playback failed:', error));
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -34,7 +47,7 @@ const Navigation: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => (
               <a
                 key={item.label}
@@ -46,6 +59,15 @@ const Navigation: React.FC = () => {
                 {item.label}
               </a>
             ))}
+            
+            {/* Music Button beside Gallery */}
+            <button
+              onClick={togglePlay}
+              className="p-2 bg-gray-800 text-white rounded-full hover:bg-gray-600 transition-all"
+              aria-label={isPlaying ? 'Pause music' : 'Play music'}
+            >
+              {isPlaying ? <PauseCircle size={24} /> : <Music size={24} />}
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -87,6 +109,12 @@ const Navigation: React.FC = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Audio Element */}
+      <audio ref={audioRef} loop>
+        <source src="/audio/exciting-day-inspiring-piano-176148.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
     </nav>
   );
 };

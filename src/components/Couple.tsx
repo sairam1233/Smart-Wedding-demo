@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
@@ -47,7 +46,7 @@ const Couple = () => {
             <div className="relative mb-6 inline-block">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80"
+                  src="https://plus.unsplash.com/premium_photo-1675107360158-1508c9194307?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Sarah Johnson"
                   className="w-full h-full object-cover"
                 />
@@ -82,7 +81,7 @@ const Couple = () => {
             <div className="relative mb-6 inline-block">
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80"
+                  src="https://plus.unsplash.com/premium_photo-1681841508993-7773331984a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Michael Smith"
                   className="w-full h-full object-cover"
                 />
